@@ -60,11 +60,13 @@ public class GroupsController {
         ArrayList<Student> pairs = new ArrayList<Student>();
         generator.transferPair(pairs);
 
-        get("/", (req, res) ->{
+        get("/random", (req, res) ->{
 
             HashMap<String, Object> model = new HashMap<>();
-            model.put("pairs", pairs);
-            model.put("template", "generator.vtl");
+            model.put("cohort", pairs.get(0).getCohort());
+            model.put("pair1", pairs.get(0).getName());
+            model.put("pair2", pairs.get(1).getName());
+            model.put("template", "random.vtl");
             return new ModelAndView(model, "layout.vtl");
         }, velocityTemplateEngine);
 
