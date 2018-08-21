@@ -1,0 +1,7 @@
+<h2>Cohort $cohort group generator bonanza!</h2>
+Your group of $size students is:
+<ul>
+#foreach ($student in $group)
+    <li>$student.getName()</li>
+#end
+</ul>

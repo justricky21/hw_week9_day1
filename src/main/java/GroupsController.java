@@ -57,16 +57,34 @@ public class GroupsController {
         generator.addStudent(tahnee);
         generator.addStudent(vicky);
 
-        ArrayList<Student> pairs = new ArrayList<Student>();
-        generator.transferPair(pairs);
+
+
+
 
         get("/random", (req, res) ->{
 
+            ArrayList<Student> pairs = new ArrayList<>();
+            generator.transferPair(pairs);
             HashMap<String, Object> model = new HashMap<>();
             model.put("cohort", pairs.get(0).getCohort());
             model.put("pair1", pairs.get(0).getName());
             model.put("pair2", pairs.get(1).getName());
             model.put("template", "random.vtl");
+            return new ModelAndView(model, "layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/group/:size", (req, res) ->{
+
+            int size = Integer.parseInt(req.params(":size"));
+
+            ArrayList<Student> group = new ArrayList<>();
+            generator.transferStudentsToGroup(group, size);
+
+            HashMap<String, Object> model = new HashMap<>();
+            model.put("size", group.size());
+            model.put("group", group);
+            model.put("cohort", group.get(0).getCohort());
+            model.put("template", "group.vtl");
             return new ModelAndView(model, "layout.vtl");
         }, velocityTemplateEngine);
 

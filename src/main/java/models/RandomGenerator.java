@@ -27,4 +27,16 @@ public class RandomGenerator {
     public int getTotalStudents(){
         return this.students.size();
     }
+
+    public void transferStudentsToGroup(ArrayList<Student> arrayToTransfer, int numberOfStudents){
+        ArrayList<Student> tempArray = this.students;
+        Collections.shuffle(tempArray);
+        int i = 0;
+        while (i < numberOfStudents){
+            arrayToTransfer.add(tempArray.get(0));
+            tempArray.remove(0);
+            i++;
+        }
+
+    }
 }
